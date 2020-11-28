@@ -14,15 +14,23 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'black',
         fontWeight: 'bold',
+    },
+    timeDateContainer: {
+        marginTop: 20,
+        marginLeft: 10
+    },
+    hora:{
+        marginTop: 80,
+ 
     }
 })
 
 
 
 export const DatePickerComponent = () => {
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('time');
+    const [show, setShow] = useState(true);
 
 
     const onChange = (event, selectedDate) => {
@@ -39,36 +47,36 @@ export const DatePickerComponent = () => {
     const showDatepicker = () => {
         showMode('date');
     };
-
-    const showTimepicker = () => {
-        showMode('time');
-    };
     return (
         <>
             <SafeAreaView style={styles.container}>
                 <View style={styles.containerTitle}>
-                    <Text style={styles.title}>Agendar una cita</Text>
+                    <Text style={styles.title}>Appointment</Text>
                 </View>
-                <View>
-                    <Text style={styles.title}>Pick Date</Text>
+
+                <View style={styles.timeDateContainer}>
                     <View>
-                        <Button onPress={showDatepicker} title="Show date picker!" />
+                        <Text style={styles.title}>Pick Date</Text>
+                        <Text tyle={styles.title}
+                            onPress={showDatepicker}>Month
+                        </Text>
+
                     </View>
 
-                    <Text style={styles.title}>Pick Time</Text>
-                    <View>
-                        <Button onPress={showTimepicker} title="Show time picker!" />
+                    <View style={styles.hora}>
+                        <Text style={styles.title}>Pick Time</Text>
+                        {show && (
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                value={date}
+                                mode={mode}
+                                is24Hour={true}
+                                onChange={onChange}
+                                display="spinner"
+                            />
+                        )}
                     </View>
-                    {show && (
-                        <DateTimePicker
-                            testID="dateTimePicker"
-                            value={date}
-                            mode={mode}
-                            is24Hour={true}
-                            display="default"
-                            onChange={onChange}
-                        />
-                    )}
+
                 </View>
             </SafeAreaView>
         </>
